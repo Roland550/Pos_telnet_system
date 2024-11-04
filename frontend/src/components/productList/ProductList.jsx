@@ -13,7 +13,7 @@ export default function ProductList() {
  
   const fetchProducts = async () => {
     axios
-    .get("http://localhost:8000/api/product/getProducts")
+    .get("https://pos-backend-bs8i.onrender.com/api/product/getProducts")
     .then((response) => {
       // Check if the response contains the `posts` array and set it to `products`
       setProducts(response.data.posts || []);

@@ -30,7 +30,7 @@ app.use('/uploads', express.static('uploads'));
 
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/Telnet-Pos", {})
+  .connect(process.env.MONGODB_URL, {})
   .then(() => console.log("DB Connection Successfull!"))
   .catch((err) => {
     console.log(err);

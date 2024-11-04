@@ -37,7 +37,7 @@ export default function Users() {
     if (!userIdToDelete) return; // Prevent deletion if no ID is set
 
     try {
-      const response = await fetch(`http://localhost:8000/users/${userIdToDelete}`, {
+      const response = await fetch(`https://pos-backend-bs8i.onrender.com/users/${userIdToDelete}`, {
         method: "DELETE",
       });
 

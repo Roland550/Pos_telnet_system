@@ -27,7 +27,7 @@ export default function AddProduct() {
     formData.append("quantity", quantity);
     formData.append("totalAmount", totalAmount);
     axios
-      .post("http://localhost:8000/addproduct", formData)
+      .post("https://pos-backend-bs8i.onrender.com/addproduct", formData)
       .then((res) => {
         console.log(res);
         // reset the form or show a success message

@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:8000",
+        target: "https://pos-backend-bs8i.onrender.com",
         secure: false,
       },
     },

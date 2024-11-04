@@ -25,7 +25,7 @@ export default function SignupPage() {
     try {
       setLoading(true);
       setErrorMessage(null);
-      const res = await fetch("http://localhost:8000/api/user/signup", {
+      const res = await fetch("https://pos-backend-bs8i.onrender.com/api/user/signup", {
         method: "POST",
         headers: {"Content-type": "application/json"},
         body: JSON.stringify(formData),

@@ -21,7 +21,7 @@ export default function Products() {
   const handlePrint0 = useReactToPrint({ contentRef });
   //fecth the data from my fake api
   const fetchProducts = async () => {
-    const response = await fetch("http://localhost:8000/getAllProducts");
+    const response = await fetch("https://pos-backend-bs8i.onrender.com/getAllProducts");
     const data = await response.json();
     setProducts(data);  
   };
@@ -66,7 +66,7 @@ export default function Products() {
     }));
 
     try {
-      const response = await fetch("http://localhost:8000/deductProduct", {
+      const response = await fetch("https://pos-backend-bs8i.onrender.com/deductProduct", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
