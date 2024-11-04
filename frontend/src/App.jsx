@@ -12,7 +12,8 @@ import Users from "./components/users/Users";
 import ProductList from "./components/productList/ProductList";
 import SendMessage from "./components/sendMessage/SendMessage";
 import Complains from "./components/complains/Complains";
-import AddUsers from "./components/addUsers/addUsers";
+import AddUsers from "./components/addUsers/AddUsers";
+
 import PrivateRoute from "./components/PrivateRoute";
 import AdmiControlPrivateRoute from "./components/AdmiControlPrivateRoute";
 function App() {
