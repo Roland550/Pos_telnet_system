@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar from "../../navbar/Navbar";
-import "./addproduct.css";
+import "./addProduct.css";
 import axios from "axios";
 
 export default function AddProduct() {
@@ -19,6 +19,7 @@ export default function AddProduct() {
   }, [price, quantity]);
 
   const handleUpload = (e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("file", file);
     formData.append("productName", productName);
