@@ -1,5 +1,5 @@
 const Product = require("../model/product.model.js");
-const errorHandler = require("../utils/error");
+const errorHandler = require("../utils/error.js");
 const fs = require("fs");
 const path = require("path");
 

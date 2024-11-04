@@ -9,15 +9,15 @@ const path = require('path')
 
 const userRouter = require("./router/user.router.js");
 const productRouter = require("./router/product.router.js");
-const UserModel = require("./model/user.model");
-const ProductModel = require("./model/product.model");
+const UserModel = require("./model/user.model.js");
+const ProductModel = require("./model/product.model.js");
 const errorHandler = require("./utils/error.js");
 const verifyUser = require("./utils/verifyUser.js");
 const app = express();
 
 
 dotenv.config();
-
+const PORT = process.env.PORT || 7000
 
 
 app.use(express.json());
@@ -136,6 +136,7 @@ app.post("/deductProduct", async (req, res) => {
     res.status(500).json({ message: "Error deducting products.", error: error.message });
   }
 });
+
 
 
 //User configuration
