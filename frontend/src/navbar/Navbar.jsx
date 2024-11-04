@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
 import del from "../assets/delt.jpeg";
+import logo from "../assets/teln.png";
 import "./navbar.css";
 import { logout } from "../redux/user/userSlice";
 // import bell from '../assets/bell.png'
@@ -144,20 +145,17 @@ export default function Navbar() {
     <>
     <header className="sticky-header">
       <nav className="navbar">
-        <div className="logo"></div>
-        <div className="search">
-          <form action="">
-            <input
-              type="search"
-              name="search"
-              id=""
-              placeholder="Search here..."
-              className="search-input"
-            />
-            <input type="submit" value="Search" className="search-btn1" />
-          </form>
-         
+        <div className="logo">
+          <img src={logo} alt="logo" />
+          <div className="title">
+          
+          </div>
         </div>
+       
+         
+     
+        <p className="hello">It is your day <span>{currentUser?.username}</span> </p>
+        
         <div className="navbar-item">
           {currentUser ? (
             <div className="hidden">

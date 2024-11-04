@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loginStart, loginSuccess, loginFailed } from "../redux/user/userSlice";
-import page from "../assets/space.gif";
+import page from "../assets/teln.png";
 import "./root.css";
 
 export default function SiginPage() {

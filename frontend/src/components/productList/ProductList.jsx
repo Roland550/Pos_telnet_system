@@ -95,8 +95,8 @@ export default function ProductList() {
               <tr>
                 <th>id</th>
                 <th>Name</th>
-                
                 <th>Price</th>
+                <th>Qty left</th>
                 <th>Image</th>
                 <th>Description</th>
                 <th>Action</th>
@@ -112,7 +112,14 @@ export default function ProductList() {
                       
                       <td>{product.productName}</td>
                       <td>{product.price}</td>
-                      
+                      <td>{product.quantity}</td>
+                      <td>
+                        <img
+                           src={`https://pos-backend-bs8i.onrender.com/uploads/${product.image}`} alt={product.productName} 
+                          
+                          style={{ width: "80px", height: "80px" }}
+                        />
+                      </td>
                       <td>{product.description}</td>
                       
                       <td>

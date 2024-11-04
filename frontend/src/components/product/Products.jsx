@@ -172,7 +172,7 @@ export default function Products() {
                   onClick={() => adProduct(product)}
                 >
                   <p className="name ">{product.productName}</p>
-                  <img src={`http://localhost:8000/uploads/${product.image}`} alt={product.productName} />
+                  <img src={`https://pos-backend-bs8i.onrender.com/uploads/${product.image}`} alt={product.productName} />
                   
                   
 
