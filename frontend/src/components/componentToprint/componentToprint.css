@@ -1,0 +1,10 @@
+
+.image_receipt{
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid black;
+    margin-bottom: 1rem;
+    outline: none;
+}

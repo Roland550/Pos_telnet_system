@@ -1,0 +1,124 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "name": "Pooom",
+            "price": 1000,
+            "image": "https://i.pinimg.com/236x/0e/cf/c4/0ecfc4d049776d557edebbe8a8891589.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Hardrive",
+            "price": 8,
+            "image": "https://i.pinimg.com/236x/99/13/51/9913513e1d7879d3819c6f04e64d9ffb.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Laptop",
+            "price": 150,
+            "image": "https://i.pinimg.com/236x/20/ca/a3/20caa341782a8c576064f4c9ce6fd61a.jpg"
+        },
+        {
+            "id": 4,
+            "name": "Keyboard",
+            "price": 38,
+            "image": "https://i.pinimg.com/236x/ca/d2/10/cad210e790351a57e4f5834d83340f4e.jpg"
+        },
+        {
+            "id": 5,
+            "name": "Mouse",
+            "price": 15,
+            "image": "https://i.pinimg.com/564x/d9/a3/45/d9a3458d11eee867a52e02d3747bafa6.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Hardrive",
+            "price": 8,
+            "image": "https://i.pinimg.com/236x/99/13/51/9913513e1d7879d3819c6f04e64d9ffb.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Laptop",
+            "price": 150,
+            "image": "https://i.pinimg.com/236x/20/ca/a3/20caa341782a8c576064f4c9ce6fd61a.jpg"
+        },
+        {
+            "id": 6,
+            "name": "Keyboard",
+            "price": 38,
+            "image": "https://i.pinimg.com/236x/ca/d2/10/cad210e790351a57e4f5834d83340f4e.jpg"
+        },
+        {
+            "id": 7,
+            "name": "Mouse",
+            "price": 15,
+            "image": "https://i.pinimg.com/564x/d9/a3/45/d9a3458d11eee867a52e02d3747bafa6.jpg"
+        }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "username": "admin",
+            "email": "David@gmail.com",
+            "phone": "0988-XXX-D98",
+            "address": "Douala",
+            "password": "9099009"
+        },
+        {
+            "id": 2,
+           "username": "David",
+            "email": "David@gmail.com",
+            "phone": "0988-XXX-D98",
+            "address": "Douala",
+            "password": "9099009"
+        },
+        {
+            "id": 3,
+          "username": "David",
+            "email": "David@gmail.com",
+            "phone": "0988-XXX-D98",
+            "address": "Douala",
+            "password": "9099009"
+        },
+        {
+            "id": 4,
+           "username": "David",
+            "email": "David@gmail.com",
+            "phone": "0988-XXX-D98",
+            "address": "Douala",
+            "password": "9099009"
+        },
+        {
+            "id": 5,
+           "username": "David",
+            "email": "David@gmail.com",
+            "phone": "0988-XXX-D98",
+            "address": "Douala",
+            "password": "9099009"
+        },
+        {
+            "id": 6,
+            "username": "David",
+            "email": "David@gmail.com",
+            "phone": "0988-XXX-D98",
+            "address": "Douala",
+            "password": "9099009"
+        },
+        {
+            "id": 7,
+           "username": "Rooo",
+            "email": "rooo@gmail.com",
+            "phone": "0988-XXX-D98",
+            "address": "Douala",
+            "password": "9099009"
+        },
+        {
+            "id": 8,
+           "username": "David",
+            "email": "David@gmail.com",
+            "phone": "0988-XXX-D98",
+            "address": "Douala",
+            "password": "9099009"
+        }
+    ]
+}
