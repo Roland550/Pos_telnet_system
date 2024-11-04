@@ -33,7 +33,7 @@ export default function Navbar() {
   //handle logout user
   const  handleSignOut = async () => {
     try {
-      const res = await fetch('api/user/signout', {
+      const res = await fetch('https://pos-backend-bs8i.onrender.com/api/user/signout', {
         method: 'POST',
         
       })
@@ -55,7 +55,7 @@ export default function Navbar() {
       <img src={currentUser?.profilePicture} className="avatar w-10 h-10 rounded-5 object-cover sm:w-5 sm:h-5 mt-4" />
       <h4 className="username text-gray">{currentUser?.email}</h4>
       
-      {currentUser ?(
+      {currentUser.isAdmin ?(
         <>
         <span className="text-light fw-bold bg-dark p-1 rounded position-absolute top-0 end-0 m-2">Admin💎</span>
           <p className="border-link">
@@ -86,6 +86,9 @@ export default function Navbar() {
           Complains
         </Link>
       </p>
+    
+      
+      
         </>
       ): (
         <span className="text-light fw-bold bg-dark p-1 rounded position-absolute top-0 end-0 m-2">User🌻</span>
@@ -94,7 +97,7 @@ export default function Navbar() {
       <p className="border-link">
         <Link to="/card" className="link">
           {" "}
-          Market
+          Store
         </Link>
       </p>
       
@@ -103,10 +106,6 @@ export default function Navbar() {
           Send Message
         </Link>
       </p>
-      
-      
-
-      
       <div className="gpt4_navbar-menu_container-links-sign">
       <button type="button" onClick={() => {
           setToggleMenu(false); 
