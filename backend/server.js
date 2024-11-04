@@ -1,5 +1,5 @@
 const express = require("express");
-const dotenv = require("dotenv");
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
@@ -16,7 +16,7 @@ const verifyUser = require("./utils/verifyUser.js");
 const app = express();
 
 
-dotenv.config();
+require('dotenv').config();
 const PORT = process.env.PORT || 7000
 
 
@@ -30,7 +30,10 @@ app.use('/uploads', express.static('uploads'));
 
 
 mongoose
-  .connect(process.env.MONGODB_URL, {})
+  .connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
   .then(() => console.log("DB Connection Successfull!"))
   .catch((err) => {
     console.log(err);
@@ -170,6 +173,6 @@ app.use((err, req, res, next) =>{
   })
 })
 
-app.listen(8000, () => {
-  console.log("Server is running on port 8000");
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
