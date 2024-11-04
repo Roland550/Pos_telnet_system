@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
 import del from "../assets/delt.jpeg";
-import "./Navbar.css";
+import "./navbar.css";
 import { logout } from "../redux/user/userSlice";
 // import bell from '../assets/bell.png'
 
