@@ -31,8 +31,7 @@ app.use('/uploads', express.static('uploads'));
 
 mongoose
   .connect(process.env.MONGODB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+    
   })
   .then(() => console.log("DB Connection Successfull!"))
   .catch((err) => {
