@@ -44,7 +44,7 @@ export default function Users() {
           "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify({
-          userId: id,
+          id,
         }),
       })
         .then((response) => response.json())
