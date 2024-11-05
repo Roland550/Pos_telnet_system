@@ -81,7 +81,7 @@
   padding: 20px;
   border-radius: 8px;
   background-color: #f9f9f9;
-  max-width: 450px;
+  width: 100%;
   height: fit-content;
   margin-top: 7%;
 }
@@ -145,13 +145,14 @@ h2 {
   
   cursor: pointer;
 }
-.quantity-input{
+.quatity_input{
   width: 50px;
   height: 30px;
- ;
+ 
   padding: 5px;
   border: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
   
   outline: none;
 }

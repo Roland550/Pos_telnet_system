@@ -142,16 +142,16 @@ app.post("/deductProduct", async (req, res) => {
 
 
 //User configuration
-app.delete('/users/:id', verifyUser, async (req, res) => {
-  const userId = req.params.id;
+app.delete('/deleteUser', verifyUser, async (req, res) => {
+  const { userId } = req.body;
+
   try {
-    const result = await UserModel.findByIdAndDelete(userId); // Assuming you're using Mongoose
-    if (!result) {
-      return res.status(404).send('User  not found');
+    User.deleteOne({ _id: userId }),function (err) {
+      console.log(err);
     }
-    res.status(200).send('User  deleted successfully');
+    return res.json("User deleted successfully");
   } catch (error) {
-    res.status(500).send('Server error');
+    console.log(error);
   }
 });
  

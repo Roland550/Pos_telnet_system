@@ -103,18 +103,18 @@ const signin = async (req, res, next) => {
 
 const deleteUser = async (req, res, next) => {
   
+  const { userId } = req.body;
 
   try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-        return res.status(404).json({ msg: 'User not found' });
+    User.deleteOne({ _id: userId }),function (err) {
+      console.log(err);
     }
+    return res.json("User deleted successfully");
+  } catch (error) {
+    console.log(error);
+  }
 
-    await user.remove();
-    res.status(200).json({ msg: 'User deleted successfully' });
-} catch (err) {
-    res.status(500).send('Server error');
-}
+  
 };
 
 

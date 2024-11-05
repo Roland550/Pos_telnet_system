@@ -21,9 +21,11 @@ export default function Products() {
   const handlePrint0 = useReactToPrint({ contentRef });
   //fecth the data from my fake api
   const fetchProducts = async () => {
-    const response = await fetch("https://pos-backend-bs8i.onrender.com/getAllProducts");
+    const response = await fetch(
+      "https://pos-backend-bs8i.onrender.com/getAllProducts"
+    );
     const data = await response.json();
-    setProducts(data);  
+    setProducts(data);
   };
 
   //add products
@@ -53,36 +55,51 @@ export default function Products() {
     }
   };
 
+  const updateQuantity = (product, newQuantity) => {
+    const updatedCart = cart.map((cartItem) =>
+      cartItem._id === product._id
+        ? {
+            ...cartItem,
+            quantity: parseInt(newQuantity),
+            totalAmount: cartItem.price * parseInt(newQuantity),
+          }
+        : cartItem
+    );
+    setCart(updatedCart);
+  };
+
   //remove product
   const removeProduct = async (product) => {
-    const newCart = cart.filter((cartItem) => cartItem.id !== product.id);
+    const newCart = cart.filter((cartItem) => cartItem._id !== product._id);
     setCart(newCart);
   };
 
   const deductProductsFromDatabase = async () => {
-    const updates = cart.map(item => ({
+    const updates = cart.map((item) => ({
       id: item._id,
       quantity: item.quantity,
     }));
 
     try {
-      const response = await fetch("https://pos-backend-bs8i.onrender.com/deductProduct", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updates),
-      });
+      const response = await fetch(
+        "https://pos-backend-bs8i.onrender.com/deductProduct",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updates),
+        }
+      );
 
       const data = await response.json();
       if (response.ok) {
         // Optionally, you could fetch the products again to refresh the data
         setMessage(data.message || "Products deducted successfully!");
-        fetchProducts(); 
+        fetchProducts();
         setCart([]); // Clear the cart after successful deduction
       } else {
         setMessage(data.message || "Failed to deduct products");
-        
       }
     } catch (error) {
       setMessage("An error occurred while deducting products.");
@@ -90,30 +107,24 @@ export default function Products() {
     }
   };
 
- 
-
   const handlePrint = () => {
     handlePrint0();
     deductProductsFromDatabase();
   };
 
-
   useEffect(() => {
     fetchProducts();
   }, []);
 
- 
-
   useEffect(() => {
     // setTotalAmount(cart.reduce((acc, item) => acc + item.totalAmount, 0));
-    let newTotalAmount = 0
-    cart.forEach(icart => {
+    let newTotalAmount = 0;
+    cart.forEach((icart) => {
       newTotalAmount = newTotalAmount + parseInt(icart.totalAmount);
-    })
+    });
     setTotalAmount(newTotalAmount);
   }, [cart]);
 
- 
   useEffect(() => {
     console.log(products);
   }, [products]);
@@ -129,16 +140,15 @@ export default function Products() {
       </div>
       {message && <p>{message}</p>}
       <div className="search-list">
-          <input
-            type="text"
-            id="bill"
-            placeholder="Search..."
-            className="input-list"
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
+        <input
+          type="text"
+          id="bill"
+          placeholder="Search..."
+          className="input-list"
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
       <div className="card-container">
-     
         {/* Card */}
 
         <div className=" appear">
@@ -157,30 +167,36 @@ export default function Products() {
             </div>
           </div>
           <div className="product-grid">
-          {
-              products.filter((product) =>{
-                if(searchTerm === ""){
-                  return product
-                }else if(product.productName && product.productName.toLowerCase().includes(searchTerm.toLowerCase())){
-                  return product
+            {products
+              .filter((product) => {
+                if (searchTerm === "") {
+                  return product;
+                } else if (
+                  product.productName &&
+                  product.productName
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
+                ) {
+                  return product;
                 }
-                return false
-              }).map((product,key) => (
-                 <div key={key} className="product-card">
-                <div
-                  className="post-item "
-                  onClick={() => adProduct(product)}
-                >
-                  <p className="name ">{product.productName}</p>
-                  <img src={`https://pos-backend-bs8i.onrender.com/uploads/${product.image}`} alt={product.productName} />
-                  
-                  
+                return false;
+              })
+              .map((product, key) => (
+                <div key={key} className="product-card">
+                  <div
+                    className="post-item "
+                    onClick={() => adProduct(product)}
+                  >
+                    <p className="name ">{product.productName}</p>
+                    <img
+                      src={`https://pos-backend-bs8i.onrender.com/uploads/${product.image}`}
+                      alt={product.productName}
+                    />
 
-                  <p className="price ">{product.price}fcfa</p>
+                    <p className="price ">{product.price}fcfa</p>
+                  </div>
                 </div>
-              </div>
-              ))
-            }
+              ))}
           </div>
         </div>
 
@@ -201,12 +217,25 @@ export default function Products() {
             <tbody>
               {cart
                 ? cart.map((cardProduct, key) => {
-                    
-                  return    <tr key={key}>
-                        <td> {cardProduct.id}</td>
+                    return (
+                      <tr key={key}>
+                        <td> {key+1}</td>
                         <td> {cardProduct.productName}</td>
                         <td> {cardProduct.price}xaf</td>
-                        <td> {cardProduct.quantity}</td>
+                        
+                        <td>
+                          <input
+                            type="number"
+                            name="quantity"
+                            value={cardProduct.quantity}
+                            onChange={(e) =>
+                              updateQuantity(cardProduct, e.target.value)
+                            }
+                            className="quatity_input"
+                          />
+                          
+                        </td>
+
                         {/* <td> {cardProduct.totalAmount}</td> */}
                         <td>
                           <button
@@ -217,7 +246,7 @@ export default function Products() {
                           </button>
                         </td>
                       </tr>
-                    
+                    );
                   })
                 : "No item in cart"}
             </tbody>
@@ -228,7 +257,7 @@ export default function Products() {
             <div className="mt-3">
               {totalAmount !== 0 ? (
                 <div className="btn btn-primary" onClick={handlePrint}>
-                  Pay Now
+                  Print receipt
                 </div>
               ) : (
                 "please add item to cart"

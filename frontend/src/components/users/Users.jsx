@@ -33,27 +33,28 @@ export default function Users() {
     }
   }, [currentUser ]);
 
-  const handleDeleteUser  = async () => {
+  const handleDeleteUser = async () => {
     if (!userIdToDelete) return; // Prevent deletion if no ID is set
-
+  
     try {
-      const response = await fetch(`https://pos-backend-bs8i.onrender.com/users/${userIdToDelete}`, {
-        method: "DELETE",
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      // Call the delete API
+      const response = await axios.delete(`https://pos-backend-bs8i.onrender.com/api/user/delete/${userIdToDelete}`);
+  
+      if (response.status === 200) {
+        
+        setUsers(users.filter((user) => user._id !== userIdToDelete));
+        setShowModal(false);
+        alert("User deleted successfully");
+        setIdToDelete(null);
+      } else {
+        throw new Error(`Failed to delete user: ${response.status}`);
       }
-
-      // Update state to remove the deleted user
-      setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userIdToDelete));
-      setShowModal(false);
-      alert("User  deleted successfully");
     } catch (error) {
-      console.error('Error deleting user:', error);
-     
+      console.error("Error deleting user:", error);
+      alert("An error occurred while trying to delete the user.");
     }
   };
+  
 
   useEffect(() => {
     if (showModal) {
@@ -158,8 +159,8 @@ export default function Users() {
                           type="button"
                           className="btn btn-danger"
                           onClick={() => {
-                            console.log("Deleting user with ID:", user._id);
-                             setIdToDelete(user._id);
+                            setIdToDelete(user._id);
+                             
                             setShowModal(true);
                           }}
                         >
@@ -188,7 +189,7 @@ export default function Users() {
             <h4>Delete User</h4>
             <p>Are you sure you want to delete this user? </p>
             <div className="modal-buttons">
-              <button onClick={handleDeleteUser }>Yes, I am sure</button>
+              <button onClick={handleDeleteUser}>Yes, I am sure</button>
               <button onClick={() => setShowModal(false)}>No, keep it</button>
             </div>
           </div>
