@@ -2,9 +2,14 @@ import Navbar from "../../navbar/Navbar";
 import { useEffect, useRef, useState } from "react";
 import del from "../../assets/delete.png";
 
+
 import "./product.css";
 import { useReactToPrint } from "react-to-print";
 import ComponentToPrint from "../componentToprint/ComponentToprint";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
 
 /**
  * This component displays a list of products, allows adding/removing products to/from a cart,
@@ -148,24 +153,73 @@ export default function Products() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
+      
       <div className="card-container">
         {/* Card */}
 
         <div className=" appear">
-          <div className="category">
-            <div className="category-name">
-              <span>laptops</span>
-            </div>
-            <div className="category-name">
-              <span>hardrives</span>
-            </div>
-            <div className="category-name">
-              <span>keyboards</span>
-            </div>
-            <div className="category-name">
-              <span>mouses</span>
-            </div>
+        <div className="category">
+            <Swiper
+              spaceBetween={50}
+              slidesPerView={3}
+              onSlideChange={() => console.log("slide change")}
+              onSwiper={(swiper) => console.log(swiper)}
+            >
+              <SwiperSlide>
+                {" "}
+                <div className="category-name">
+                  
+                  <span>laptops</span>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="category-name">
+                  <span>hardrives</span>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="category-name">
+                  <span>keyboards</span>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="category-name">
+                  <span>mouses</span>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="category-name">
+                  <span>crimping tool</span>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="category-name">
+                  <span>screwdrivers</span>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="category-name">
+                  <span>hard drives</span>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="category-name">
+                  <span>chargers</span>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="category-name">
+                  <span>USB flash</span>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="category-name">
+                  <span>laptop bag</span>
+                </div>
+              </SwiperSlide>
+            </Swiper>
           </div>
+
           <div className="product-grid">
             {products
               .filter((product) => {
@@ -219,10 +273,10 @@ export default function Products() {
                 ? cart.map((cardProduct, key) => {
                     return (
                       <tr key={key}>
-                        <td> {key+1}</td>
+                        <td> {key + 1}</td>
                         <td> {cardProduct.productName}</td>
                         <td> {cardProduct.price}xaf</td>
-                        
+
                         <td>
                           <input
                             type="number"
@@ -233,7 +287,6 @@ export default function Products() {
                             }
                             className="quatity_input"
                           />
-                          
                         </td>
 
                         {/* <td> {cardProduct.totalAmount}</td> */}

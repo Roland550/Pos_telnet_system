@@ -4,7 +4,7 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
-import del from "../assets/delt.jpeg";
+import del from "../assets/logout.png";
 import logo from "../assets/teln.png";
 import "./navbar.css";
 import { logout } from "../redux/user/userSlice";

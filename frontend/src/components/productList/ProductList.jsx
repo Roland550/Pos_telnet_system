@@ -131,7 +131,7 @@ export default function ProductList() {
                         </Link>
                       </td>
                       <td>
-                        <Link to={`/edit/${product.id}`}>
+                        <Link to={`/update/${product._id}`}>
                         edit
                         </Link>
                       </td>

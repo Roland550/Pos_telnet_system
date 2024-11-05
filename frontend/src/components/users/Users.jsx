@@ -51,7 +51,7 @@ export default function Users() {
         .then((data) => {
           console.log(data);
           alert(`User ${name} deleted successfully`);
-          fetchUsers();
+          
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -71,6 +71,10 @@ export default function Users() {
       document.body.style.overflow = 'auto';
     };
   }, [showModal]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   return (
     <div>
@@ -96,9 +100,9 @@ export default function Users() {
             <p>PDF</p>
           </div>
           <div className="totalNum" onClick={() => setShowForm(true)}>
-            <p>ADD USER</p>
+            <p>ADD</p>
           </div>
-          <div className="totalNum" onClick={fetchUsers}>
+          <div className="totalNum" onClick={fetchUsers()}>
             <p>Refresh</p>
           </div>
         </div>
@@ -121,8 +125,9 @@ export default function Users() {
 
       <div className="flex justify-content-center align-items-center col mt-1">
         {currentUser .isAdmin && users.length > 0 ? (
-          <div className="table-responsive bg-light px-5 text-white rounded">
- <table className="table table-responsive table-light table-hover table-striped rounded-3">
+          
+          <div className="mt-1 table-responsive bg-light">
+             <table className="table table-responsive table-light table-hover table-striped rounded-3">
               <thead>
                 <tr>
                   <th scope="col">N.</th>
@@ -148,11 +153,11 @@ export default function Users() {
                   .map((user, index) => (
                     <tr key={user._id}>
                       <th scope="row">{index + 1}</th>
-                      <td>
+                      <td className="sm:m-2">
                         <img
                           src={user.profilePicture}
                           alt=""
-                          className="img-fluid rounded-circle"
+                          className="avatar w-5 h-5 rounded-circle"
                         />
                       </td>
                       <td>{user.username}</td>
@@ -182,6 +187,7 @@ export default function Users() {
               Total Number of users: {users.length}
             </h2>
           </div>
+          
         ) : (
           <p className="text-center">No users found</p>
         )}

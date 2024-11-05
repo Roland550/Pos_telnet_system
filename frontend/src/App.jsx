@@ -16,6 +16,7 @@ import AddUsers from "./components/addUsers/AddUsers";
 
 import PrivateRoute from "./components/PrivateRoute";
 import AdmiControlPrivateRoute from "./components/AdmiControlPrivateRoute";
+import UpdateProduct from "./components/updateProduct/UpdateProduct";
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +32,7 @@ function App() {
           <Route path="/notification" element={<Notification />} />
           <Route path="/complains" element={<Complains />} />
           <Route path="/adduser" element={<AddUsers />} />
+          <Route path="/update/:postId" element={<UpdateProduct />} />
           <Route path="/users" element={<Users />} />
         </Route>
 
