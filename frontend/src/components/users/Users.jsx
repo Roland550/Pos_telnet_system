@@ -14,7 +14,7 @@ export default function Users() {
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [userIdToDelete, setIdToDelete] = useState(null); // For storing the ID of the user to delete
+   // For storing the ID of the user to delete
 
   const fetchUsers = async () => {
     try {
@@ -33,25 +33,29 @@ export default function Users() {
     }
   }, [currentUser ]);
 
-  const handleDeleteUser = async () => {
-    if (!userIdToDelete) return; // Prevent deletion if no ID is set
-  
-    try {
-      // Call the delete API
-      const response = await axios.delete(`https://pos-backend-bs8i.onrender.com/api/user/delete/${userIdToDelete}`);
-  
-      if (response.status === 200) {
-        
-        setUsers(users.filter((user) => user._id !== userIdToDelete));
-        setShowModal(false);
-        alert("User deleted successfully");
-        setIdToDelete(null);
-      } else {
-        throw new Error(`Failed to delete user: ${response.status}`);
-      }
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      alert("An error occurred while trying to delete the user.");
+  const handleDeleteUser = async (id, name) => {
+    if (window.confirm(`Are you sure you want to delete ${name}?`)) {
+       fetch(`https://pos-backend-bs8i.onrender.com/deleteUser`, {
+        method: "POST",
+        crossDomain: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          userId: id,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          alert(`User ${name} deleted successfully`);
+          fetchUsers();
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
   };
   
@@ -159,9 +163,9 @@ export default function Users() {
                           type="button"
                           className="btn btn-danger"
                           onClick={() => {
-                            setIdToDelete(user._id);
+                            handleDeleteUser(user._id, user.username);
                              
-                            setShowModal(true);
+                            
                           }}
                         >
                           Delete

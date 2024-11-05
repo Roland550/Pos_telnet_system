@@ -142,14 +142,14 @@ app.post("/deductProduct", async (req, res) => {
 
 
 //User configuration
-app.delete('/deleteUser', verifyUser, async (req, res) => {
+app.post('/deleteUser', verifyUser, async (req, res) => {
   const { userId } = req.body;
 
   try {
     User.deleteOne({ _id: userId }),function (err) {
       console.log(err);
     }
-    return res.json("User deleted successfully");
+    return res.json({status: "Ok", data: "User deleted successfully"});
   } catch (error) {
     console.log(error);
   }
