@@ -143,19 +143,22 @@ app.post("/deductProduct", async (req, res) => {
 
 //User configuration
 app.delete('/deleteUser/:userId', verifyUser, async (req, res) => {
-  const { userId } = req.params; // Extract userId from URL params
+  const { userId } = req.params;  // Correctly retrieve userId from req.params
 
   try {
-    const result = await UserModel.deleteOne({ _id: userId });
-    if (result.deletedCount === 0) {
+    const result = await UserModel.findByIdAndDelete(userId);
+    
+    if (!result) {
       return res.status(404).json({ status: "Error", message: "User not found" });
     }
+    
     return res.json({ status: "Ok", message: "User deleted successfully" });
   } catch (error) {
-    console.log(error);
+    console.error(error);  // Log the error for debugging
     return res.status(500).json({ status: "Error", message: "Failed to delete user" });
   }
 });
+
 
  
  
