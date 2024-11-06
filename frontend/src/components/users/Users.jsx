@@ -36,16 +36,20 @@ export default function Users() {
   const handleDeleteUser = async (id, name) => {
     if (window.confirm(`Are you sure you want to delete ${name}?`)) {
       try {
-        await axios.delete(`https://pos-backend-bs8i.onrender.com/deleteUser`);
-        // Optimistically update the users list
+        // Send a DELETE request to the backend with the user ID
+        const response = await axios.delete(`https://pos-backend-bs8i.onrender.com/deleteUser/${id}`);
+        
+        // Optimistically update the users list on the frontend
         setUsers(users.filter((user) => user._id !== id));
-        alert(`User ${name} deleted successfully`);
+  
+        alert(response.data.message || `User ${name} deleted successfully`);
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Error:", error.response ? error.response.data.message : error.message);
         alert("Error deleting user. Please try again.");
       }
     }
   };
+  
   
 
   useEffect(() => {
