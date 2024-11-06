@@ -35,27 +35,15 @@ export default function Users() {
 
   const handleDeleteUser = async (id, name) => {
     if (window.confirm(`Are you sure you want to delete ${name}?`)) {
-       fetch(`https://pos-backend-bs8i.onrender.com/deleteUser`, {
-        method: "POST",
-        crossDomain: true,
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({
-          id,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          alert(`User ${name} deleted successfully`);
-          
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+      try {
+        await axios.delete(`https://pos-backend-bs8i.onrender.com/deleteUser`);
+        // Optimistically update the users list
+        setUsers(users.filter((user) => user._id !== id));
+        alert(`User ${name} deleted successfully`);
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Error deleting user. Please try again.");
+      }
     }
   };
   
@@ -102,7 +90,7 @@ export default function Users() {
           <div className="totalNum" onClick={() => setShowForm(true)}>
             <p>ADD</p>
           </div>
-          <div className="totalNum" onClick={fetchUsers()}>
+          <div className="totalNum" onClick={fetchUsers}>
             <p>Refresh</p>
           </div>
         </div>

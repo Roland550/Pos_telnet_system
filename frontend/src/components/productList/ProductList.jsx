@@ -126,7 +126,7 @@ export default function ProductList() {
                         
                       </td>
                       <td>
-                        <Link to={`/edit/${product.id}`}>
+                        <Link to={`/delete/${product.id}`}>
                         X
                         </Link>
                       </td>

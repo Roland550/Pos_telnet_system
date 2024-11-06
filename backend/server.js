@@ -142,8 +142,8 @@ app.post("/deductProduct", async (req, res) => {
 
 
 //User configuration
-app.post('/deleteUser', verifyUser, async (req, res) => {
-  const { userId } = req.body;
+app.delete('/deleteUser/:userId', verifyUser, async (req, res) => {
+  const { userId } = req.params; // Extract userId from URL params
 
   try {
     const result = await UserModel.deleteOne({ _id: userId });

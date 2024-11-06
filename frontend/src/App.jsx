@@ -21,11 +21,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SignupPage />} />
+        <Route path="/" element={<SigninPage />} />
         <Route path="/navbar" element={<Navbar />} />
 
         <Route element={<PrivateRoute />}>
-          <Route path="/card" element={<Products />} />
+          <Route path="/card" element={<Products/>} />
           <Route path="/message" element={<SendMessage />} />
           <Route path="/addProduct" element={<AddProduct />} />
           <Route path="/productList" element={<ProductList />} />
