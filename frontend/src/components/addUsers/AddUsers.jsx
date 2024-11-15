@@ -1,11 +1,23 @@
 import { useState } from "react";
 import Navbar from "../../navbar/Navbar";
+import { toast } from "react-toastify";
 // import { useNavigate } from "react-router-dom";
 
 export default function AddUsers() {
   const [formData, setFormData] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const toastOptions = {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+  }
 
   // const navigate = useNavigate();
 
@@ -19,7 +31,8 @@ export default function AddUsers() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!formData.username || !formData.email || !formData.password) {
-      return setErrorMessage("All fields are required");
+      toast.error("All fields are required please", toastOptions);
+      return;
     }
     try {
       setLoading(true);
@@ -39,7 +52,9 @@ export default function AddUsers() {
       }
       setLoading(false);
       if (res.ok) {
-        alert("User created successfully");
+        toast.success("User created successfully", toastOptions);
+        setFormData("");
+        
       }
     } catch (error) {
       setErrorMessage(error.message);

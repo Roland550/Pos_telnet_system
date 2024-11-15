@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/signup', signup)
 router.post('/signin', signin)
 router.post('/delete',verifyUser, deleteUser)
-router.put('/update/:userId', verifyUser, updateUser)
+router.put('/update/:editId/:userId', verifyUser, updateUser)
 router.post('/signout', signout)
 router.get('/getUsers', verifyUser, getUsers)
 

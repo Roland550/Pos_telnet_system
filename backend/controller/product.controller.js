@@ -5,33 +5,30 @@ const path = require("path");
 
 //create product
 const createProduct = async (req, res, next) => {
-    
- 
-  console.log('req.file:', req.file);  // Debugging file
-    console.log('req.body:', req.body);  // Debugging body data
-    const { productName, description, price, category } = req.body;
+  console.log("req.file:", req.file); // Debugging file
+  console.log("req.body:", req.body); // Debugging body data
+  const { productName, description, price, category } = req.body;
 
-   
-    
+  if (!productName || !description || !price) {
+    return next(
+      errorHandler(400, "Fill all requirements and upload an image.")
+    );
+  }
 
-    if (!productName || !description || !price) {
-      return next(errorHandler(400, "Fill all requirements and upload an image."));
-    }
+  const newProduct = new Product({
+    productName,
+    description,
+    price,
+    category,
+    image: req.file.filename,
+  });
 
-    const newProduct = new Product({
-      productName,
-      description,
-      price,
-      category,
-      image: req.file.filename
-    });
-
-    try{
-      await newProduct.save();
-      return res.json("Product added successfully");;
-    }catch(err){
-      next(err);
-    }
+  try {
+    await newProduct.save();
+    return res.json("Product added successfully");
+  } catch (err) {
+    next(err);
+  }
 };
 
 //get all products
@@ -79,7 +76,7 @@ const getProducts = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
+};
 
 const deductProduct = async (req, res, next) => {
   const updates = req.body; // [{ id, quantity }, ...]
@@ -89,11 +86,15 @@ const deductProduct = async (req, res, next) => {
       // Find the product and update its quantity
       const product = await Product.findById(id);
       if (!product) {
-        return res.status(404).json({ message: `Product with ID ${id} not found` });
+        return res
+          .status(404)
+          .json({ message: `Product with ID ${id} not found` });
       }
 
       if (product.quantity < quantity) {
-        return res.status(400).json({ message: `Not enough quantity for product ${id}` });
+        return res
+          .status(400)
+          .json({ message: `Not enough quantity for product ${id}` });
       }
 
       // Deduct the quantity
@@ -106,31 +107,37 @@ const deductProduct = async (req, res, next) => {
     console.error(error);
     res.status(500).json({ message: "Error deducting products." });
   }
-}
+};
 
 const updateProduct = async (req, res, next) => {
-  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
-    return next(errorHandler(403, "You are not allowed to update this post"));
-  }
   try {
-    const updatedPost = await Product.findByIdAndUpdate(
-      req.params.postId,
+    const id = req.params.id;
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      next(errorHandler(404, "User not found"));
+    }
+    const product = await Product.findById(id);
+
+    if (!product) {
+      next(errorHandler(404, "Product not found"));
+    }
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
       {
-        $set: {
-          title: req.body.title,
-          content: req.body.content,
-          category: req.body.category,
-          image: req.body.image,
-        },
+        productName: req.body.productName,
+        price: req.body.price,
+        quantity: req.body.quantity,
+        description: req.body.description,
+        image: req.file ? req.file.filename : product.image,
       },
       { new: true }
     );
-    res.status(200).json(updatedPost);
+    res.status(200).json(updatedProduct);
   } catch (error) {
     next(error);
   }
 };
-
-
 
 module.exports = { createProduct, getProducts, deductProduct, updateProduct };

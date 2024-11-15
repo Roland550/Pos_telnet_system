@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loginStart, loginSuccess, loginFailed } from "../redux/user/userSlice";
 import page from "../assets/teln.png";
 import "./root.css";
+import { toast } from "react-toastify";
 
 export default function SiginPage() {
   const [formData, setFormData] = useState({});
@@ -90,15 +91,15 @@ export default function SiginPage() {
                         <span className="spinner-border spinner-border-sm"></span>
                       </>
                     ) : (
-                      "Sign Up"
+                      "Sign In"
                     )}
                   </button>
                  
-                  <button type="submit" className="page_button">
+                  <button type="submit" className="page_button" onClick={()=>toast.info("This feature  is coming soon...")}>
                     Continue with Google{" "}
                   </button>
                  
-                  <Link to="/signup" className="link_to">Sign Up</Link>
+                 
                   {errorMessage && (
                     <p className="error-message bg-danger">{errorMessage}</p>
                   )}

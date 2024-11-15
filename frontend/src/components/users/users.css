@@ -1,12 +1,13 @@
 
 
 .usr-img{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+   
 }
   .addUsers{
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
@@ -17,6 +18,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 999;
 }
 
 .addUsers form{
@@ -44,6 +46,16 @@
     border-radius: 5px;
     outline: none;
 }
+.addUsers form select{
+    width: 100%;
+    height: 40px;
+    margin: 0.5rem;
+    padding: 5px ;
+    margin: 10px 20px;
+    border: 1px solid #c5c5c5;
+    border-radius: 5px;
+    outline: none;
+}
 .addUsers form button{
     width: 100%;
     height: 40px;
@@ -57,6 +69,7 @@
     outline: none;
     cursor: pointer;
 }
+
 .addUsers form .btn-close{
     width:20px;
     height: 20px;
@@ -81,10 +94,11 @@
 }
 
 .modal-container{
-    position: absolute;
+    position: fixed;
     top: 0;
    
     left: 0;
+    bottom: 0;
     width: 100%; 
     height: 100%; 
     background: rgb(0, 0, 0, 0.5);
@@ -93,7 +107,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 10;
+    z-index: 999;
 }
 .modal-container .modal-content{
     display: flex;
@@ -143,4 +157,10 @@
     cursor: pointer;
     background: #dcd4d4;
     
+}
+
+.del_btn{
+    border: none;
+    background: none;
+    color: #f44336;
 }

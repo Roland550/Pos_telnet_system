@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "../../navbar/Navbar";
 import "./addProduct.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function AddProduct() {
   const [file, setFile] = useState(null);
@@ -10,7 +11,18 @@ export default function AddProduct() {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
   const [totalAmount, setTotalAmount] = useState(0);
-
+  const [loading, setLoading] = useState(false);
+  
+  const toastOptions = {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+  }
   useEffect(() => {
     const priceValue = parseFloat(price) || 0;
     const quantityValue = parseInt(quantity) || 0;
@@ -27,11 +39,16 @@ export default function AddProduct() {
     formData.append("description", description);
     formData.append("quantity", quantity);
     formData.append("totalAmount", totalAmount);
+    if(!file || !productName || !price || !description || !quantity || !totalAmount){
+      toast.error("All fields are required please",toastOptions);
+      return;
+    }
     axios
       .post("https://pos-backend-bs8i.onrender.com/addproduct", formData)
       .then((res) => {
         console.log(res);
         // reset the form or show a success message
+        toast.success("Product added successfully",toastOptions);
         setFile(null);
         setProductName("");
         setPrice("");
@@ -40,6 +57,7 @@ export default function AddProduct() {
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   };
   return (
@@ -55,7 +73,7 @@ export default function AddProduct() {
               placeholder="Product Name"
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
-              required
+              
               className="add_input"
             />
 
@@ -64,7 +82,7 @@ export default function AddProduct() {
               placeholder="Price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              required
+              
               className="add_input"
             />
 
@@ -76,7 +94,7 @@ export default function AddProduct() {
                 setQuantity(e.target.value);
                 setTotalAmount(parseFloat(e.target.value) * parseFloat(price));
               }}
-              required
+             
               className="add_input"
             />
 
@@ -85,7 +103,7 @@ export default function AddProduct() {
               placeholder="Description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              required
+              
               className="add_input"
             />
 
@@ -98,7 +116,13 @@ export default function AddProduct() {
               id=""
               className="add_input"
             />
-            <button type="submit" className="add_input">Upload</button>
+            <button type="submit" className="add_input" disabled={loading}>
+                {loading ?(
+                  <>
+                  <span className="spinner-border spinner-border-sm"></span>
+                  </>
+                ): "Add user"}
+              </button>
           </form>
         </div>
       </div>

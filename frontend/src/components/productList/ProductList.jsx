@@ -4,10 +4,14 @@ import "./productList.css";
 
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { MdDelete, MdEdit } from "react-icons/md";
+import { toast } from "react-toastify";
 export default function ProductList() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [deleteToProductId, setDeleteToProductId] = useState(null);
 
 
  
@@ -21,6 +25,29 @@ export default function ProductList() {
     .catch((error) => setError(error.message))
     .finally(() => setLoading(false));
   }
+
+  const handleDeletePost = async () => {
+    
+    try {
+      const res = await fetch(
+        `/api/product/deleteProduct/${deleteToProductId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        setProducts((prev) =>
+          prev.filter((post) => post._id !== deleteToProductId)
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   useEffect(() => {
       
@@ -53,6 +80,8 @@ export default function ProductList() {
   //   fetchProducts();
   // }, []);
 
+
+
   useEffect(() => {
     console.log(products);
   }, [products]);
@@ -70,16 +99,17 @@ export default function ProductList() {
             id=""
             placeholder="Search..."
             className="input-list"
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         <div className="total-item">
-          <div className="totalNum">
+          <div className="totalNum" onClick={() => toast.info("This feature is coming soon...")}>
             <p >Filter</p>
           </div>
-          <div className="totalNum">
+          <div className="totalNum" onClick={() => toast.info("This feature is coming soon...")}>
             <p>PDF</p>
           </div>
-          <div className="totalNum">
+          <div className="totalNum" onClick={() => toast.info("This feature is coming soon...")}>
             <p>EXCEL</p>
           </div>
           <div className="totalNum" onClick={fetchProducts}>
@@ -93,23 +123,37 @@ export default function ProductList() {
           <table className="table table-responsive table-light table-hover ">
             <thead>
               <tr>
-                <th>id</th>
+                <th>N.</th>
+                <th>Date</th>
                 <th>Name</th>
                 <th>Price</th>
-                <th>Qty left</th>
-                <th>Image</th>
+                <th>Quantity</th>
+                <th className="px-5">Images</th>
                 <th>Description</th>
-                <th>Action</th>
+                <th>Delete</th>
+                <th>Edit</th>
                
                 
               </tr>
             </thead>
             <tbody>
             {Array.isArray(products) && products.length > 0 ? (
-                  products.map((product, count) => (
+                  products
+                  .filter((product) => {
+                    if (searchTerm === "") {
+                      return product;
+                    } else if (
+                      product.productName
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase())
+                    ) {
+                      return product;
+                    }
+                  })
+                  .map((product, count) => (
                       <tr key={product.id}>
                         <td>{count + 1}</td>
-                      
+                        <td>{new Date(product.createdAt).toLocaleDateString()}</td>
                       <td>{product.productName}</td>
                       <td>{product.price}</td>
                       <td>{product.quantity}</td>
@@ -117,22 +161,22 @@ export default function ProductList() {
                         <img
                            src={`https://pos-backend-bs8i.onrender.com/uploads/${product.image}`} alt={product.productName} 
                           
-                          style={{ width: "80px", height: "80px" }}
+                         className="user-img"
                         />
                       </td>
                       <td>{product.description}</td>
                       
-                      <td>
+                    
                         
+                      
+                      <td>
+                        <button className="del_btn" >
+                          <MdDelete size={27} />
+                        </button>
                       </td>
                       <td>
-                        <Link to={`/delete/${product.id}`}>
-                        X
-                        </Link>
-                      </td>
-                      <td>
-                        <Link to={`/update/${product._id}`}>
-                        edit
+                        <Link className="edit_btn" to={`/update/${product._id}`}>
+                        <MdEdit size={27} />
                         </Link>
                       </td>
                     </tr>

@@ -7,6 +7,8 @@ import "./product.css";
 import { useReactToPrint } from "react-to-print";
 import ComponentToPrint from "../componentToprint/ComponentToprint";
 import { Swiper, SwiperSlide } from "swiper/react";
+import {  toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 // Import Swiper styles
 import "swiper/css";
@@ -24,6 +26,18 @@ export default function Products() {
   const contentRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
   const handlePrint0 = useReactToPrint({ contentRef });
+
+  const toastOption ={
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    
+  }
+  
   //fecth the data from my fake api
   const fetchProducts = async () => {
     const response = await fetch(
@@ -49,6 +63,9 @@ export default function Products() {
           : cartItem
       );
       setCart(newCart);
+      
+      
+     
     } else {
       // Add new product to the cart if not present
       let addingProduct = {
@@ -57,6 +74,10 @@ export default function Products() {
         totalAmount: product.price,
       };
       setCart([...cart, addingProduct]);
+      
+         toast.success(`Added ${product.productName} to cart`,toastOption);
+      
+    
     }
   };
 
@@ -99,7 +120,7 @@ export default function Products() {
 
       const data = await response.json();
       if (response.ok) {
-        // Optionally, you could fetch the products again to refresh the data
+       toast.success(`Products deducted successfully`,toastOption);
         setMessage(data.message || "Products deducted successfully!");
         fetchProducts();
         setCart([]); // Clear the cart after successful deduction
@@ -144,6 +165,7 @@ export default function Products() {
         />
       </div>
       {message && <p>{message}</p>}
+     
       <div className="search-list">
         <input
           type="text"
@@ -153,7 +175,7 @@ export default function Products() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-      
+     
       <div className="card-container">
         {/* Card */}
 
@@ -319,6 +341,7 @@ export default function Products() {
           </div>
         </div>
       </div>
+     
     </>
   );
 }

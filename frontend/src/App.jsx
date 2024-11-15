@@ -17,6 +17,10 @@ import AddUsers from "./components/addUsers/AddUsers";
 import PrivateRoute from "./components/PrivateRoute";
 import AdmiControlPrivateRoute from "./components/AdmiControlPrivateRoute";
 import UpdateProduct from "./components/updateProduct/UpdateProduct";
+import EditUser from "./components/editUser/EditUser";
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <BrowserRouter>
@@ -33,6 +37,7 @@ function App() {
           <Route path="/complains" element={<Complains />} />
           <Route path="/adduser" element={<AddUsers />} />
           <Route path="/update/:postId" element={<UpdateProduct />} />
+          <Route path="/editUser/:editId" element={<EditUser />} />
           <Route path="/users" element={<Users />} />
         </Route>
 
@@ -44,6 +49,7 @@ function App() {
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/pos" element={<POSDashboard />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 }

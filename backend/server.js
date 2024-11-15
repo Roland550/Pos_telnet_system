@@ -21,7 +21,10 @@ const PORT = process.env.PORT || 7000
 
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173", // Replace with your frontend domain
+  credentials: true,
+}));
 // app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -40,7 +43,7 @@ mongoose
 
 
 
-app.get("/getAllUsers", (req, res) => {
+app.get("/getAllUsers",(req, res, next) => {
   UserModel.find()
     .then((users) => 
       res.json(users)
@@ -48,6 +51,7 @@ app.get("/getAllUsers", (req, res) => {
     .catch((err) => 
       console.log(err)
     );
+ 
 });
 
 //Product configuration
@@ -142,20 +146,19 @@ app.post("/deductProduct", async (req, res) => {
 
 
 //User configuration
-app.delete('/deleteUser/:userId', verifyUser, async (req, res) => {
-  const { userId } = req.params.id;  
-
+app.delete('/deleteUser/:userId', async (req, res, next) => {
+  const id = req.params.userId
   try {
-    const result = await UserModel.findByIdAndDelete(userId);
+    const result = await UserModel.findByIdAndDelete(id);
     
     if (!result) {
-      return res.status(404).json({ status: "Error", message: "User not found" });
+      return next(errorHandler(404, "User not found"));
     }
     
-    return res.json({ status: "Ok", message: "User deleted successfully" });
+    return next(errorHandler(200, "User deleted successfully"));
   } catch (error) {
     console.error(error);  // Log the error for debugging
-    return res.status(500).json({ status: "Error", message: "Failed to delete user" });
+    return next(errorHandler(500, "Error deleting user"));
   }
 });
 

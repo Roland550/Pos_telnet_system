@@ -62,44 +62,44 @@ const signin = async (req, res, next) => {
 };
 
 //get all users
-// const getUsers = async (req, res, next) => {
-//   if (!req.user ||!req.user.isAdmin) {
-//     return next(errorHandler(403, "You are not allowed to see all users"));
-//   }
-//   try {
-//     const startIndex = Math.max (parseInt(req.query.startIndex) || 0,0);
-//     const limit =Math.min (parseInt(req.query.limit) || 9, 100);
-//     const sortDirection = req.query.sort === "asc" ? 1 : 1;
-//     const users = await User.find()
-//       .sort({ createdAt: sortDirection })
-//       .skip(startIndex)
-//       .limit(limit);
+const getUsers = async (req, res, next) => {
+  if (!req.user ||!req.user.isAdmin) {
+    return next(errorHandler(403, "You are not allowed to see all users"));
+  }
+  try {
+    const startIndex = Math.max (parseInt(req.query.startIndex) || 0);
+    const limit =Math.min (parseInt(req.query.limit) || 9);
+    const sortDirection = req.query.sort === "asc" ? 1 : -1;
+    const users = await User.find()
+      .sort({ createdAt: sortDirection })
+      .skip(startIndex)
+      .limit(limit);
 
-//     const userWithoutPassword = users.map((user) => {
-//       const { password, ...rest } = user._doc;
-//       return rest;
-//     });
+    const userWithoutPassword = users.map((user) => {
+      const { password, ...rest } = user._doc;
+      return rest;
+    });
 
-//     const totalUsers = await User.countDocuments();
+    const totalUsers = await User.countDocuments();
 
-//     const now = new Date();
-//     const oneMonthAgo = new Date(
-//       now.getFullYear(),
-//       now.getMonth() - 1,
-//       now.getDate()
-//     );
-//     const lastMonthUsers = await User.countDocuments({
-//       createdAt: { $gte: oneMonthAgo },
-//     });
-//     res.status(200).json({
-//       users: userWithoutPassword,
-//       totalUsers,
-//       lastMonthUsers,
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+    const now = new Date();
+    const oneMonthAgo = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      now.getDate()
+    );
+    const lastMonthUsers = await User.countDocuments({
+      createdAt: { $gte: oneMonthAgo },
+    });
+    res.status(200).json({
+      users: userWithoutPassword,
+      totalUsers,
+      lastMonthUsers,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const deleteUser = async (req, res, next) => {
   
@@ -119,42 +119,22 @@ const deleteUser = async (req, res, next) => {
 
 
  const updateUser = async (req, res, next) => {
-  if (req.user.id !== req.params.userId) {
-    return next(errorHandler(403, "You are not allowed to update this user"));
-  }
-  if (req.body.password) {
-    if (req.body.password.lenght < 4) {
-      return next(errorHandler(400, "Password must be at least 6 characters"));
-    }
-    req.body.password = bcrypt.hashSync(req.body.password, 10);
-  }
-  if (req.body.username) {
-    if (req.body.username < 2 || req.body.username > 20) {
-      return next(
-        errorHandler(400, "Username must be between 6 and 20 characters")
-      );
-    }
-   
-    
-   
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+    return next(errorHandler(403, "You are not allowed to update this User"));
   }
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.userId,
       {
         $set: {
-          username: req.body.username,
+          name: req.body.username,
           email: req.body.email,
-          profilePicture: req.body.profilePicture,
-          password: req.body.password,
+          
         },
       },
-      {
-        new: true,
-      }
+      { new: true }
     );
-    const { password, ...rest } = updatedUser._doc;
-    res.status(200).json(rest);
+    res.status(200).json(updatedUser);
   } catch (error) {
     next(error);
   }
@@ -171,13 +151,13 @@ const signout = async (req, res, next) => {
 }
 
 
-const getUsers = async (req, res, next) => {
-    User.find()
-      .then((users) => 
-        res.json(users)
-      )
-      .catch((err) => 
-        next(err)
-      );
-}
+// const getUsers = async (req, res, next) => {
+//     User.find()
+//       .then((users) => 
+//         res.json(users)
+//       )
+//       .catch((err) => 
+//         next(err)
+//       );
+// }
 module.exports = { signup, signin, getUsers , deleteUser , signout, updateUser };

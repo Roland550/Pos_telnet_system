@@ -8,6 +8,7 @@ import del from "../assets/logout.png";
 import logo from "../assets/teln.png";
 import "./navbar.css";
 import { logout } from "../redux/user/userSlice";
+import { toast } from "react-toastify";
 // import bell from '../assets/bell.png'
 
 
@@ -22,6 +23,17 @@ export default function Navbar() {
 
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
+
+  const toastOptions = {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  }
 
   useEffect(() => {
     if (theme === "light") {
@@ -45,6 +57,8 @@ export default function Navbar() {
         
       }else{
         dispatch(logout(data))
+        toast.success("Signed out successfully",toastOptions);
+        setShowModal(false);
       }
     } catch (error) {
       console.log(error.message);
@@ -231,6 +245,7 @@ export default function Navbar() {
          </div>
        </div>
       )}
+     
     </>
   );
 }
