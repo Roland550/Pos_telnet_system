@@ -189,8 +189,8 @@ export default function ProductList() {
                         style={
                           {
                           whiteSpace: "nowrap",
-                          maxWidth: "180px",
-                          maxHeight: "35px",
+                          maxWidth: "160px",
+                          
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                           }
