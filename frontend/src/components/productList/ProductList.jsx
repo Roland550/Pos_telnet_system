@@ -183,9 +183,18 @@ export default function ProductList() {
                          className="user-img"
                         />
                       </td>
-                      <div className="description">
-                      <td className="fz-sm" >{product.description}</td>
-                      </div>
+                      
+                      <td 
+                        style={
+                          {
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          }
+                          
+                        }
+                       >{product.description}</td>
+                      
                      
                       
                     
