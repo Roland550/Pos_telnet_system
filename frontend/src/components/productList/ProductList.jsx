@@ -6,14 +6,28 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { toast } from "react-toastify";
+import del from "../../assets/delt.jpeg";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteProductStart, deleteProductSuccess, deleteProductFailed } from "../../redux/user/userSlice.js";
 export default function ProductList() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [deleteToProductId, setDeleteToProductId] = useState(null);
-
-
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch()
+  const toastOptions = {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+  };
  
   const fetchProducts = async () => {
     axios
@@ -26,11 +40,12 @@ export default function ProductList() {
     .finally(() => setLoading(false));
   }
 
-  const handleDeletePost = async () => {
+  const handleDeleteProduct = async () => {
     
     try {
+      dispatch(deleteProductStart());
       const res = await fetch(
-        `/api/product/deleteProduct/${deleteToProductId}`,
+        `https://pos-backend-bs8i.onrender.com/deleteProduct/${deleteToProductId}`,
         {
           method: "DELETE",
         }
@@ -40,19 +55,23 @@ export default function ProductList() {
       if (!res.ok) {
         console.log(data.message);
       } else {
-        setProducts((prev) =>
-          prev.filter((post) => post._id !== deleteToProductId)
-        );
+        setProducts((prev) => prev.filter((product) => product._id !== deleteToProductId));
+        toast.success("Product deleted successfully", toastOptions)
+        dispatch(deleteProductSuccess(data));
+        setShowModal(false);
       }
     } catch (error) {
       console.log(error.message);
+      dispatch(deleteProductFailed())
     }
   };
 
   useEffect(() => {
       
-    fetchProducts();
-  },[]);
+    if(currentUser.isAdmin){
+      fetchProducts();
+    }
+  },[currentUser]);
 
   // useEffect(() => {
   //   const fetchProducts = async () => {
@@ -80,10 +99,10 @@ export default function ProductList() {
   //   fetchProducts();
   // }, []);
 
+    console.log(products);
 
 
   useEffect(() => {
-    console.log(products);
   }, [products]);
   return (
     <div>
@@ -150,9 +169,9 @@ export default function ProductList() {
                       return product;
                     }
                   })
-                  .map((product, count) => (
+                  .map((product, key) => (
                       <tr key={product.id}>
-                        <td>{count + 1}</td>
+                        <td>{key + 1}</td>
                         <td>{new Date(product.createdAt).toLocaleDateString()}</td>
                       <td>{product.productName}</td>
                       <td>{product.price}</td>
@@ -170,7 +189,12 @@ export default function ProductList() {
                         
                       
                       <td>
-                        <button className="del_btn" >
+                        <button className="del_btn" onClick={
+                          ()=>{
+                            setDeleteToProductId(product._id),
+                          setShowModal(true)
+                          }
+                        } >
                           <MdDelete size={27} />
                         </button>
                       </td>
@@ -191,6 +215,25 @@ export default function ProductList() {
         </div>
       </div>
     )}
+     {showModal && (
+        <div className="modal-container" onClick={() => setShowModal(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <img src={del} alt="" />
+            <h4>Delete User</h4>
+            <p>Are you sure you want to delete this user?</p>
+            <div className="modal-buttons">
+              <button onClick={()=>{
+                // dispatch(deleteUser(deleteToUserId));
+                console.log('delete button clicked');
+                handleDeleteProduct();
+                setShowModal(false);
+              }}>Yes, I am sure</button>
+              <button onClick={() => setShowModal(false)}>No, keep it</button>
+            </div>
+          </div>
+        </div>
+
+      )}
   </div>
 );
    

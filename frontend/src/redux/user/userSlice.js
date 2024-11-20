@@ -8,6 +8,9 @@ const initialState = {
   deleteUserError: null,
   deleteUserLoading: false,
   editing: false,
+  products:[],
+  deleteProductError: null,
+  deleteProductLoading: false,
 
 };
 
@@ -63,6 +66,25 @@ const userSlice = createSlice({
       state.editing = false;
       state.error = action.payload;
     },
+    
+     //Delete product state
+    deleteProductStart: (state) => {
+      state.deleteProductLoading = true;
+      state.deleteProductError = null;
+    },
+    deleteProductSuccess: (state, action) => {
+      state.deleteProductLoading = false;
+      state.deleteProductError = null;
+      state.products = state.products.filter(
+        (product) => product._id !== action.payload._id
+      );
+      state.deleteProductLoading = false;
+      state.deleteProductError = null;
+    },
+    deleteProduprctFailed: (state, action) => {
+      state.deleteProductLoading = false;
+      state.deleteProductError = action.payload;
+    },
 
   },
 });
@@ -78,5 +100,8 @@ export const {
   editUserStart,
   editUserSuccess,
   editUserFailed,
+  deleteProductStart,
+  deleteProductFailed,
+  deleteProductSuccess
 } = userSlice.actions;
 export default userSlice.reducer;

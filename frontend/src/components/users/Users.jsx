@@ -8,7 +8,7 @@ import { MdDelete, MdEdit } from "react-icons/md";
 
 import axios from "axios";
 import { toast } from "react-toastify";
-import { deleteUserSuccess, deleteUserFailed, deleteUserStart } from "../../redux/user/userSlice";
+import { deleteUserSuccess, deleteUserFailed, deleteUserStart } from "../../redux/user/userSlice.js";
 
 export default function Users() {
   const { currentUser } = useSelector((state) => state.user);
@@ -58,7 +58,7 @@ export default function Users() {
     try {
       dispatch(deleteUserStart());
       const res = await fetch(
-        `http://localhost:8000/deleteUser/${deleteToUserId}`,
+        `https://pos-backend-bs8i.onrender.com/deleteUser/${deleteToUserId}`,
         {
           method: "DELETE",
         }

@@ -26,6 +26,7 @@ const storage = multer.diskStorage({
 router.post("/createProduct", verifyUser, upload.single('file'), createProduct);
 router.get("/getProducts", getProducts);
 router.get("/deductProduct", verifyUser, deductProduct);
+router.delete("/deleteProduct/:id")
 router.put('/updateProd/:id/:userId', verifyUser, updateProduct);
 
 module.exports = router;

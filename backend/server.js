@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 7000
 
 app.use(express.json());
 app.use(cors({
-  origin: "http://localhost:5173", // Replace with your frontend domain
+  origin: "https://pos-telnet-system-1.onrender.com", // Replace with your frontend domain
   credentials: true,
 }));
 // app.use(bodyParser.json());
@@ -156,6 +156,21 @@ app.delete('/deleteUser/:userId', async (req, res, next) => {
     }
     
     return next(errorHandler(200, "User deleted successfully"));
+  } catch (error) {
+    console.error(error);  // Log the error for debugging
+    return next(errorHandler(500, "Error deleting user"));
+  }
+});
+app.delete('/deleteProduct/:userId', async (req, res, next) => {
+  const id = req.params.userId
+  try {
+    const result = await ProductModel.findByIdAndDelete(id);
+    
+    if (!result) {
+      return next(errorHandler(404, "User not found"));
+    }
+    
+    return next(errorHandler(200, "Product deleted successfully"));
   } catch (error) {
     console.error(error);  // Log the error for debugging
     return next(errorHandler(500, "Error deleting user"));

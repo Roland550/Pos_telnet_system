@@ -56,7 +56,7 @@ export default function SiginPage() {
               Welcome to <span className="lgo1">TELNET POS</span>
             </h1>
             <p className="">
-              Create your profile and start selling
+              Sign in to your profile and be productive
             </p>
             <img src={page} alt="" className="w-50 h-50" />
           </div>
