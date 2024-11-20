@@ -183,7 +183,10 @@ export default function ProductList() {
                          className="user-img"
                         />
                       </td>
-                      <td className="desc">{product.description}</td>
+                      <div className="description">
+                      <td className="fz-sm" >{product.description}</td>
+                      </div>
+                     
                       
                     
                         
