@@ -183,7 +183,7 @@ export default function ProductList() {
                          className="user-img"
                         />
                       </td>
-                      <td>{product.description}</td>
+                      <td className="desc">{product.description}</td>
                       
                     
                         

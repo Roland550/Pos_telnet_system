@@ -121,7 +121,7 @@ export default function AddProduct() {
                   <>
                   <span className="spinner-border spinner-border-sm"></span>
                   </>
-                ): "Add user"}
+                ): "Add product"}
               </button>
           </form>
         </div>
