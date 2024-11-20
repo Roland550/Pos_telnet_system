@@ -187,11 +187,12 @@ export default function ProductList() {
                       <td 
                         style={
                           {
-                          whiteSpace: "nowrap",
+                          whiteSpace: "normal",
+                          maxHeight: "30",
                           overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          }
                           
+                          }
+
                         }
                        >{product.description}</td>
                       
