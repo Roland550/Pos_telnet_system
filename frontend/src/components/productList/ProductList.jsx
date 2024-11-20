@@ -185,6 +185,7 @@ export default function ProductList() {
                       </td>
                       
                       <td 
+                        className="text-truncate"
                         style={
                           {
                           whiteSpace: "nowrap",
