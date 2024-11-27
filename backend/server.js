@@ -22,10 +22,10 @@ const PORT = process.env.PORT || 7000
 
 app.use(express.json());
 app.use(cors({
-  origin: "https://pos-telnet-system-1.onrender.com", // Replace with your frontend domain
+  origin: "https://pos-telnet-system-1.onrender.com", 
   credentials: true,
 }));
-// app.use(bodyParser.json());
+
 app.use(cookieParser());
 
 
