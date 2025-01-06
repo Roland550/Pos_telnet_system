@@ -230,7 +230,7 @@ export default function ProductList() {
         <div className="modal-container" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <img src={del} alt="" />
-            <h4>Delete User</h4>
+            <h4>Delete Product</h4>
             <p>Are you sure you want to delete this product?</p>
             <div className="modal-buttons">
               <button onClick={()=>{
