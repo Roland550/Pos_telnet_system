@@ -38,7 +38,7 @@ export default function Users() {
   const fetchUsers = async () => {
     try {
 
-      const response = await axios.get("http://localhost:8000/getAllUsers");
+      const response = await axios.get("https://pos-backend-bs8i.onrender.com/getAllUsers");
       setUsers(response.data);
     } catch (error) {
       setError(error.message);
