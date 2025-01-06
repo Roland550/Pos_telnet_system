@@ -128,12 +128,8 @@ export default function ProductList() {
           <div className="totalNum" onClick={() => toast.info("This feature is coming soon...")}>
             <p>PDF</p>
           </div>
-          <div className="totalNum" onClick={() => toast.info("This feature is coming soon...")}>
-            <p>EXCEL</p>
-          </div>
-          <div className="totalNum" onClick={fetchProducts}>
-            <p>Refresh</p>
-          </div>
+          
+          
         </div>
       </div>
       {!loading && !error && (
@@ -235,7 +231,7 @@ export default function ProductList() {
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <img src={del} alt="" />
             <h4>Delete User</h4>
-            <p>Are you sure you want to delete this user?</p>
+            <p>Are you sure you want to delete this product?</p>
             <div className="modal-buttons">
               <button onClick={()=>{
                 // dispatch(deleteUser(deleteToUserId));

@@ -145,9 +145,7 @@ export default function Users() {
           <div className="totalNum" onClick={() => setShowForm(true)}>
             <p>ADD</p>
           </div>
-          <div className="totalNum" onClick={() => window.location.reload()}>
-            <p>Refresh</p>
-          </div>
+          
         </div>
       </div>
 
