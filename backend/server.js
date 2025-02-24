@@ -131,6 +131,7 @@ app.post("/deductProduct", async (req, res) => {
 
       // Deduct the quantity
       product.quantity -= quantity;
+      product.soldQuantity += quantity;
       
       // Save the updated product back to the database
       await product.save();
@@ -143,6 +144,16 @@ app.post("/deductProduct", async (req, res) => {
   }
 });
 
+app.get("/getSoldItemsReport", async (req, res, next) => {
+  try {
+    // Fetch products where soldQuantity > 0
+    const soldItems = await ProductModel.find({ soldQuantity: { $gt: 0 } });
+
+    res.status(200).json(soldItems);
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 //User configuration

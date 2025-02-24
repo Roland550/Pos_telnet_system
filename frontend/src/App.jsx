@@ -21,6 +21,7 @@ import EditUser from "./components/editUser/EditUser";
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SoldReportItems from "./components/saleReport/SoldReportItems";
 function App() {
   return (
     <BrowserRouter>
@@ -36,6 +37,7 @@ function App() {
           <Route path="/notification" element={<Notification />} />
           <Route path="/complains" element={<Complains />} />
           <Route path="/adduser" element={<AddUsers />} />
+          <Route path="/sold-items-report" element={<SoldReportItems />} />
           <Route path="/update/:postId" element={<UpdateProduct />} />
           <Route path="/editUser/:editId" element={<EditUser />} />
           <Route path="/users" element={<Users />} />

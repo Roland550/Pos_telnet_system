@@ -5,7 +5,7 @@ const multer  = require('multer')
 const path = require('path')
 
 
-const { createProduct, getProducts, deductProduct, updateProduct } = require("../controller/product.controller.js");
+const { createProduct, getProducts, deductProduct, updateProduct , getSoldItemsReport} = require("../controller/product.controller");
 const router = express.Router();
 
 
@@ -26,6 +26,7 @@ const storage = multer.diskStorage({
 router.post("/createProduct", verifyUser, upload.single('file'), createProduct);
 router.get("/getProducts", getProducts);
 router.get("/deductProduct", verifyUser, deductProduct);
+router.get("/getSoldItemsReport", verifyUser, getSoldItemsReport);
 router.delete("/deleteProduct/:id")
 router.put('/updateProd/:id/:userId', verifyUser, updateProduct);
 

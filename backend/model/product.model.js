@@ -22,6 +22,7 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    soldQuantity: { type: Number, default: 0 },
     totalAmount: {
       type: Number,
       required: true

@@ -98,7 +98,8 @@ const deductProduct = async (req, res, next) => {
       }
 
       // Deduct the quantity
-      product.quantity -= quantity;
+      product.quantity -= quantity; // deduct the quatitty
+      product.soldQuantity += quantity; // add to sold out
       await product.save();
     }
 
@@ -106,6 +107,17 @@ const deductProduct = async (req, res, next) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error deducting products." });
+  }
+};
+
+const getSoldItemsReport = async (req, res, next) => {
+  try {
+    // Fetch products where soldQuantity > 0
+    const soldItems = await Product.find({ soldQuantity: { $gt: 0 } });
+
+    res.status(200).json(soldItems);
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -151,5 +163,12 @@ const deleteProduct = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
-module.exports = { createProduct, getProducts, deductProduct, updateProduct, deleteProduct };
+};
+module.exports = {
+  createProduct,
+  getProducts,
+  deductProduct,
+  updateProduct,
+  deleteProduct,
+  getSoldItemsReport,
+};

@@ -2,7 +2,7 @@ import  { Component } from 'react';
 import PropTypes from 'prop-types';
 import './componentToprint.css';
 
-import logo from '../../assets/telnet.png';
+import logo from '../../assets/ten1.png';
 class ComponentToPrint extends Component {
     
   render() {
@@ -19,8 +19,8 @@ class ComponentToPrint extends Component {
           
           
           <p className='fw-bold'>Address: Malingo-Junction Buea</p>
-          <p className='fw-bold'>phone: +237 6 00 00 00</p>
-          <p className='fw-bold'>email: telnett@gmail.com</p>
+          <p className='fw-bold'>phone: +237 671 827 893</p>
+          <p className='fw-bold'>email: info@telnetcm.org</p>
 
           
         </div>
@@ -42,8 +42,8 @@ class ComponentToPrint extends Component {
                       return (
                         <tr key={key}>
                           <td> {cardProduct.id}</td>
-                          <td> {cardProduct.name}</td>
-                          <td className='fw-bold'> ${cardProduct.price}</td>
+                          <td> {cardProduct.productName}</td>
+                          <td className='fw-bold'> {cardProduct.price} cfa</td>
                           <td> {cardProduct.quantity}</td>
                          
                          
@@ -54,7 +54,7 @@ class ComponentToPrint extends Component {
               </tbody>
             </table>
             <p className='fs-5 fw-bold'>=====================================================</p>
-            <h2 className="px-2 fw-bold">Total Amount: ${totalAmount}</h2>
+            <h2 className="px-2 fw-bold">Total Amount: {totalAmount} cfa</h2>
             <p className='text-center  fs-5 fw-bold'>Thank you for Shopping with us,</p>
             <p className='text-center  fs-5 fw-bold'>Please come again.</p>
             

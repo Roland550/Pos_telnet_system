@@ -28,7 +28,7 @@ export default function SiginPage() {
     }
     try {
       dispatch(loginStart());
-      const response = await fetch("https://pos-backend-bs8i.onrender.com/api/user/signin", {
+      const response = await fetch("/api/user/signin", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(formData),
