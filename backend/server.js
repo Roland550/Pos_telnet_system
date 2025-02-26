@@ -60,37 +60,60 @@ const storage = multer.diskStorage({
     cb(null, 'uploads')
   },
   filename: function (req, file, cb) {
-    
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + "-" + file.originalname);
   }
 })
 
-const upload = multer({ storage: storage })
+const upload = multer({ storage: storage,
+  limits: { fileSize: 3 * 1024 * 1024 }, // 3MB file size limit
+ })
 
 app.post("/addproduct", upload.single('file'), async(req, res, next) => {
 
 
-  const { productName, description, price, category, quantity } = req.body;
-  const totalAmount = price * quantity
+  try {
+    const { productName, description, price, category, quantity } = req.body;
+  const totalAmount = price * quantity;
+  const file = req.file;
+  
 
-  ProductModel.create({
-    productName: req.body.productName,
-    description: req.body.description,
-    price: req.body.price,
-    category: req.body.category,
+  const product = new ProductModel({
+    productName,
+    description,
+    price,
+    category,
     quantity,
     totalAmount,
-    image: req.file.filename  
-  })
-  .then((users) => 
+    image: file.image ? file.image[0].filename: null,
+  });
 
-    res.json(users),
-    console.log('product added successfully')
+  const result = await product.save();
+  res.status(201).json(result);
     
-  )
-  .catch((err) => 
-    console.log(err)
-  );
+  } catch (error) {
+    next(error);
+    
+  }
+
+  // ProductModel.create({
+  //   productName: req.body.productName,
+  //   description: req.body.description,
+  //   price: req.body.price,
+  //   category: req.body.category,
+  //   quantity,
+  //   totalAmount,
+  //   image: req.file.filename  
+  // })
+  // .then((users) => 
+
+  //   res.json(users),
+  //   console.log('product added successfully')
+    
+  // )
+  // .catch((err) => 
+  //   console.log(err)
+  // );
 })
 
   app.get("/getAllProducts", (req, res) => {

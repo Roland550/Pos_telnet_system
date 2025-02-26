@@ -119,6 +119,10 @@ export default function Navbar() {
       </p>
 
       <p className="border-link">
+            <Link to="/sold-items-report" className="link">Sold Items Report</Link>
+          </p>
+
+      <p className="border-link">
         <Link to="/message" className="link">
           Send Message
         </Link>
