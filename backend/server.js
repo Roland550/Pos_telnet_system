@@ -29,7 +29,7 @@ app.use(cors({
 app.use(cookieParser());
 
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 
 
@@ -86,7 +86,7 @@ app.post("/addproduct", upload.single('file'), async(req, res, next) => {
     category,
     quantity,
     totalAmount,
-    image: file.image ? file.image[0].filename: null,
+    image: file ? file.filename : null,
   });
 
   const result = await product.save();
@@ -220,6 +220,7 @@ app.delete('/deleteProduct/:userId', async (req, res, next) => {
 
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
+app.use('/uploads', express.static('uploads'));
 
 //erroMiddlewre
 app.use((err, req, res, next) =>{
