@@ -33,7 +33,7 @@ export default function AddProduct() {
   const handleUpload = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("image", file);
     formData.append("productName", productName);
     formData.append("price", price);
     formData.append("description", description);
@@ -112,8 +112,7 @@ export default function AddProduct() {
             <input
               type="file"
               onChange={(e) => setFile(e.target.files[0])}
-              name=""
-              id=""
+             
               className="add_input"
             />
             <button type="submit" className="add_input" disabled={loading}>
