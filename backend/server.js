@@ -78,7 +78,7 @@ app.post("/addproduct", upload.single("file"), async (req, res, next) => {
       category,
       quantity,
       totalAmount,
-      image: file ? file.filename : null,
+      image: file.image ? file.image[0].filename : null,
     });
 
     const result = await product.save();
