@@ -66,8 +66,8 @@ export default function SoldReportItems() {
                 <td>{item.productName}</td>
                 <td>{item.soldQuantity}</td>
                 <td>{item.price} fcfa</td>
-                <td>{new Date().toLocaleDateString()}</td>
-                <td>{new Date().toLocaleTimeString()}</td>
+                <td> {new Date(item.createdAt).toLocaleDateString()}</td>
+                <td> {new Date(item.createdAt).toLocaleTimeString()}</td>
                 <td>{item.soldQuantity * item.price} fcfa</td>
               </tr>
             ))}
