@@ -332,7 +332,7 @@ export default function Products() {
             <div className="mt-3">
               {totalAmount !== 0 ? (
                 <div className="btn btn-primary" onClick={handlePrint}>
-                  Print receipt
+                  Confirm Purchase
                 </div>
               ) : (
                 "please add item to cart"
