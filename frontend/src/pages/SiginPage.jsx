@@ -35,9 +35,9 @@ export default function SiginPage() {
         headers: {"Content-type": "application/json"},
         body: JSON.stringify(formData),
       });
-      const data = response.data;
+      const data = await response.json();
       if (data.success == false) {
-        return dispatch(loginFailed(data.message));
+        return dispatch(loginFailed(data.message || "Login failed"));
       }
 
       if (response.ok) {
@@ -73,6 +73,7 @@ export default function SiginPage() {
                     id="email"
                     placeholder="Email"
                     onChange={handleChange}
+                   
                   /> 
 
                   <input
@@ -81,6 +82,7 @@ export default function SiginPage() {
                     id="password"
                     placeholder="Password"
                     onChange={handleChange}
+                    
                   />
 
                   <button
