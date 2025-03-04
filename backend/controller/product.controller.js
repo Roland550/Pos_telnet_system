@@ -35,7 +35,7 @@ const createProduct = async (req, res, next) => {
 const getProducts = async (req, res, next) => {
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
-    const limit = parseInt(req.query.limit) || 9;
+    const limit = parseInt(req.query.limit) || 50;
     const sortDirection = req.query.order === "asc" ? 1 : -1;
     const posts = await Product.find({
       ...(req.query.userId && { userId: req.query.userId }),

@@ -73,32 +73,7 @@ export default function ProductList() {
     }
   },[currentUser]);
 
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     try {
-        
-  //         const res = await fetch("http://localhost:8000/api/product/getProducts");
-  //         const data = await res.json();
-  //         setProducts(data);
-  //         if (!res.ok) {
-  //           setError(true);
-  //           setLoading(false);
-  //           return;
-  //         }
-  //         if (res.ok) {
-  //           setProducts(data.posts|| []);
-  //           setLoading(false);
-  //           setError(false);
-  //         }
-  
-  //     } catch (error) {
-  //       setError(error.message   || "Something went wrong");
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchProducts();
-  // }, []);
-
+ 
     console.log(products);
 
 
