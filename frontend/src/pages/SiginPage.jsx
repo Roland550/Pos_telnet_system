@@ -5,7 +5,7 @@ import { loginStart, loginSuccess, loginFailed } from "../redux/user/userSlice";
 import page from "../assets/teln.png";
 import "./root.css";
 import { toast } from "react-toastify";
-import axios from "axios";
+
 
 export default function SiginPage() {
   const [formData, setFormData] = useState({});
@@ -29,10 +29,11 @@ export default function SiginPage() {
     }
     try {
       dispatch(loginStart());
-      const response = await axios.post("https://pos-backend-bs8i.onrender.com/api/user/signin", formData, {
+      const response = await fetch("https://pos-backend-bs8i.onrender.com/api/user/signin",{
         
-        headers: { "Content-type": "application/json" },
-       
+        method: "POST",
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify(formData),
       });
       const data = response.data;
       if (data.success == false) {
