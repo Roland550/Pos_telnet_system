@@ -96,9 +96,7 @@ export default function Navbar() {
               Add User
             </Link>
           </p>
-          <p className="border-link">
-            <Link to="/sold-items-report" className="link">Sold Items Report</Link>
-          </p>
+          
           <p className="border-link">
             <Link to="/complains" className="link">
               Complains
